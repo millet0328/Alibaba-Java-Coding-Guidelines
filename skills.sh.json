@@ -1,0 +1,37 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "编程规约",
+      "description": "Java编码标准与最佳实践",
+      "skills": [
+        "java-coding-standards"
+      ]
+    },
+    {
+      "title": "数据库与工程",
+      "description": "MySQL数据库规范与工程结构设计",
+      "skills": [
+        "java-mysql-database",
+        "java-project-structure"
+      ]
+    },
+    {
+      "title": "质量保障",
+      "description": "异常处理、日志记录与单元测试",
+      "skills": [
+        "java-exception-logging",
+        "java-unit-testing"
+      ]
+    },
+    {
+      "title": "安全与设计",
+      "description": "安全规约与系统设计规范",
+      "skills": [
+        "java-security-standards",
+        "java-design-standards"
+      ]
+    }
+  ]
+}

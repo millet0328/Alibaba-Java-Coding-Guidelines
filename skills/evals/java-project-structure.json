@@ -1,0 +1,20 @@
+{
+  "skill_name": "java-project-structure",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "这个 Maven 依赖配置有问题吗？\n\n```xml\n<dependencies>\n    <dependency>\n        <groupId>com.alibaba</groupId>\n        <artifactId>fastjson</artifactId>\n        <version>1.2.78-SNAPSHOT</version>\n    </dependency>\n    \n    <dependency>\n        <groupId>org.springframework</groupId>\n        <artifactId>spring-core</artifactId>\n        <version>5.3.10</version>\n    </dependency>\n    <dependency>\n        <groupId>org.springframework</groupId>\n        <artifactId>spring-context</artifactId>\n        <version>5.3.11</version>\n    </dependency>\n</dependencies>\n```",
+      "expected_output": "应该指出：1) 线上应用不要依赖 SNAPSHOT 版本（安全包除外）；2) 同一个库的不同模块版本应该一致，spring-core 和 spring-context 版本应该统一；3) 应该使用 dependencyManagement 统一管理版本；4) 应该定义统一的版本变量，如 ${spring.version}"
+    },
+    {
+      "id": 2,
+      "prompt": "这个分层架构设计合理吗？\n\n```java\n// Controller 层\n@RestController\npublic class UserController {\n    @Autowired\n    private UserDAO userDAO;  // 直接调用 DAO\n    \n    @GetMapping(\"/user/{id}\")\n    public User getUser(@PathVariable Long id) {\n        return userDAO.selectById(id);\n    }\n}\n\n// 没有 Service 层\n```",
+      "expected_output": "应该指出：1) Web 层不应该直接依赖 DAO 层，应该通过 Service 层；2) 标准分层：开放API层 → Web层 → Service层 → Manager层 → DAO层；3) Service 层处理业务逻辑，Web 层只做参数校验和转发；4) 应该补充 Service 层和 Manager 层"
+    },
+    {
+      "id": 3,
+      "prompt": "GAV 这样定义对吗？\n\n```xml\n<groupId>com.company</groupId>\n<artifactId>utils</artifactId>\n<version>0.0.1</version>\n```",
+      "expected_output": "应该指出：1) GroupId 应该包含公司/BU和业务线，最多4级，如 com.company.business.subbusiness；2) ArtifactId 格式应该是 产品线名-模块名，如 common-utils；3) 起始版本号必须为 1.0.0，而不是 0.0.1；4) 版本号命名：主版本号.次版本号.修订号"
+    }
+  ]
+}

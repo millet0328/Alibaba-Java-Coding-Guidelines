@@ -1,0 +1,20 @@
+{
+  "skill_name": "java-mysql-database",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "这个表设计符合规范吗？\n\n```sql\nCREATE TABLE Users (\n    id INT PRIMARY KEY,\n    UserName VARCHAR(50),\n    IsDeleted INT,\n    createTime DATETIME\n);\n```",
+      "expected_output": "应该指出：1) 表名和字段名必须使用小写字母，Users 改为 users，UserName 改为 user_name；2) isDeleted 应使用 is_deleted 命名，数据类型应为 unsigned tinyint；3) 表必备三字段：id、create_time、update_time，缺少 update_time；4) id 类型建议为 bigint unsigned"
+    },
+    {
+      "id": 2,
+      "prompt": "这个SQL查询有什么问题？\n\n```sql\nSELECT * FROM orders WHERE user_id = 123 ORDER BY create_time DESC LIMIT 100000, 20;\n```",
+      "expected_output": "应该指出：1) 不要使用 SELECT *，应明确指定需要的字段；2) 大偏移量的分页会导致性能问题，offset=100000 效率很低；3) 建议使用延迟关联或子查询优化：SELECT t1.* FROM orders t1, (SELECT id FROM orders WHERE user_id=123 ORDER BY create_time DESC LIMIT 100000, 20) t2 WHERE t1.id=t2.id；4) 确保 user_id 和 create_time 有合适的索引"
+    },
+    {
+      "id": 3,
+      "prompt": "这个索引设计合理吗？\n\n```sql\nCREATE TABLE products (\n    id BIGINT PRIMARY KEY,\n    category VARCHAR(50),\n    name VARCHAR(200),\n    price DECIMAL(10,2),\n    status TINYINT,\n    KEY idx_name (name),\n    KEY idx_category_status (category, status)\n);\n\n-- 常见查询\nSELECT * FROM products WHERE name LIKE '%手机%';\nSELECT * FROM products WHERE category='electronics' AND status=1 ORDER BY price;\n```",
+      "expected_output": "应该指出：1) 左模糊查询 LIKE '%手机%' 会导致索引失效，应该走搜索引擎；2) 在 varchar 字段建索引必须指定长度，如 KEY idx_name (name(50))；3) 组合索引 idx_category_status 顺序合理（等值条件在前）；4) 如果按 price 排序频繁，可以考虑建立包含 price 的覆盖索引"
+    }
+  ]
+}
