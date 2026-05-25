@@ -7,6 +7,9 @@ testdata/
 .class
 .log
 
+# Agent skills configuration (not part of distributable skills)
+.agents/
+
 # Package Files #
 
 *.war
@@ -71,7 +74,6 @@ configuration/**
 
 # sass gitignore#
 .sass-cache
-.idea
 
 # tcc_coverage
 coverage.ec
@@ -82,7 +84,6 @@ config.client.*
 
 temp/
 *.pid
-*.orig
 
 hsf.configuration/
 
